@@ -41,7 +41,7 @@ public class QRCodeUtil {
      */
     public static byte[] getQRCodeBytes(String qrData) {
         BufferedImage bufferedImage = getQRCodeBufferedImage(qrData);
-        return bufferedImageToBytes(bufferedImage);
+        return BufferedImageUtil.bufferedImageToBytes(bufferedImage);
     }
 
     /**
@@ -85,22 +85,5 @@ public class QRCodeUtil {
         graphics.dispose();
         bufferedImage.flush();
         return bufferedImage;
-    }
-
-    /**
-     * BufferedImage转byte[]
-     * @implNote 当然也可以返回 ByteArrayOutputStream，看具体需要
-     * @param bufferedImage BufferedImage对象
-     * @return byte[]
-     * @auth zhy
-     */
-    private static byte[] bufferedImageToBytes(BufferedImage bufferedImage) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            ImageIO.write(bufferedImage, "png", out);
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return out.toByteArray();
     }
 }
