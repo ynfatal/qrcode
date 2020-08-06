@@ -16,4 +16,11 @@ class QRCodeUtilTest {
         String qrData = "https://www.imooc.com/video/10317";
         QRCodeUtil.generate(path, qrData);
     }
+
+    @Test
+    void decode() {
+        String path = "D:/code/qrcode.png";
+        String qrData = QRCodeUtil.decode(path);
+        System.out.println(qrData);
+    }
 }

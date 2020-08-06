@@ -1,5 +1,6 @@
 package com.example.qrcode.util;
 
+import com.example.qrcode.qrcode.MyQrCodeImage;
 import com.swetake.util.Qrcode;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import javax.imageio.ImageIO;
+import jp.sourceforge.qrcode.QRCodeDecoder;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -32,6 +34,24 @@ public class QRCodeUtil {
             log.error("【二维码生成】生成失败");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 解析二维码
+     * @param path 二维码本地生成的路径
+     * @return
+     */
+    public static String decode(String path) {
+        File file = new File(path);
+        BufferedImage bufferedImage = null;
+        try {
+            bufferedImage = ImageIO.read(file);
+            QRCodeDecoder codeDecoder = new QRCodeDecoder();
+            return new String(codeDecoder.decode(new MyQrCodeImage(bufferedImage)), "gb2312");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
