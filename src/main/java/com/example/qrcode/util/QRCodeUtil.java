@@ -31,7 +31,7 @@ public class QRCodeUtil {
         try {
             ImageIO.write(bufferedImage, "png", new File(path));
         } catch (IOException e) {
-            log.error("【二维码生成】生成失败");
+            log.error("【二维码】生成失败");
             e.printStackTrace();
         }
     }
@@ -42,13 +42,13 @@ public class QRCodeUtil {
      * @return
      */
     public static String decode(String path) {
-        File file = new File(path);
-        BufferedImage bufferedImage = null;
         try {
-            bufferedImage = ImageIO.read(file);
+            File file = new File(path);
+            BufferedImage bufferedImage = ImageIO.read(file);
             QRCodeDecoder codeDecoder = new QRCodeDecoder();
             return new String(codeDecoder.decode(new MyQrCodeImage(bufferedImage)), "gb2312");
         } catch (IOException e) {
+            log.error("【二维码】解析失败");
             e.printStackTrace();
         }
         return null;
