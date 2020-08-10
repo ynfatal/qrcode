@@ -5,11 +5,9 @@ import com.google.zxing.BinaryBitmap;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatReader;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.NotFoundException;
 import com.google.zxing.Result;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.client.j2se.ImageReader;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
@@ -18,13 +16,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * zxing 已经有了相关的二维码工具-QrCodeUtil，链接：https://hutool.cn/docs/#/extra/%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%B7%A5%E5%85%B7-QrCodeUtil
  * @author Fatal
  * @date 2020/8/6 13:08
  */
@@ -95,10 +93,10 @@ public class ZxingUtil {
         Map map = new HashMap<>();
         map.put(EncodeHintType.CHARACTER_SET, "utf-8");
         map.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
-        map.put(EncodeHintType.MARGIN, 2);
+        map.put(EncodeHintType.MARGIN, 1);
         BitMatrix bitMatrix = null;
         try {
-            bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height);
+            bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, width, height, map);
         } catch (WriterException e) {
             e.printStackTrace();
         }
